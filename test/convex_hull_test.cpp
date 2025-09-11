@@ -6,6 +6,7 @@
 
 #include <gtest/gtest.h>
 
+#include "algorithm/convex_hull/extreme_edge.h"
 #include "algorithm/convex_hull/extreme_point.h"
 #include "geometry/point.h"
 
@@ -25,6 +26,15 @@ protected:
 
 TEST_F(ConvexHullTest, GetConvexHullByExtremePointsTest) {
     auto convex_extreme_points = GetConvexHullByExtremePoint(points1_);
+    EXPECT_EQ(convex_extreme_points.size(), 4);
+    EXPECT_EQ(convex_extreme_points[0], expected_points1_[0]);
+    EXPECT_EQ(convex_extreme_points[1], expected_points1_[1]);
+    EXPECT_EQ(convex_extreme_points[2], expected_points1_[2]);
+    EXPECT_EQ(convex_extreme_points[3], expected_points1_[3]);
+}
+
+TEST_F(ConvexHullTest, GetConvexHullByExtremeEdgeTest) {
+    auto convex_extreme_points = GetConvexHullByExtremeEdge(points1_);
     EXPECT_EQ(convex_extreme_points.size(), 4);
     EXPECT_EQ(convex_extreme_points[0], expected_points1_[0]);
     EXPECT_EQ(convex_extreme_points[1], expected_points1_[1]);
