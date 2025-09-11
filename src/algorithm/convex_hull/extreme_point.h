@@ -6,7 +6,6 @@
  * @date 2025-09-01
  */
 
-#include <algorithm>
 #include <vector>
 
 #include "algorithm/convex_hull/util.h"
@@ -16,9 +15,9 @@
 namespace euclid::algorithm::convex_hull {
 
 inline std::vector<geometry::Point2D> GetConvexHullByExtremePoint(const std::vector<geometry::Point2D>& input_points) {
-    auto points = remove_coincide_points(input_points);
-    if (points.size() <= 3) {
-        return points;
+    auto points = RemoveCoincidePoints(input_points);
+    if (points.size() < 3) {
+        return {};
     }
 
     std::vector<bool> is_extreme_point(points.size(), false);
@@ -62,44 +61,7 @@ inline std::vector<geometry::Point2D> GetConvexHullByExtremePoint(const std::vec
             extreme_points.push_back(points[h]);
         }
     }
-    if (extreme_points.size() <= 3) {
-        return extreme_points;
-    }
-
-    std::sort(extreme_points.begin(), extreme_points.end());
-
-    std::vector<geometry::Point2D> convex_hull_points;
-    convex_hull_points.reserve(extreme_points.size());
-    convex_hull_points.push_back(extreme_points[0]);
-
-    std::vector<int> inserted(extreme_points.size(), -1);
-    inserted[0] = 0;
-    size_t num_inserted = 1;
-    size_t last_extreme_point_index = 0;
-    for (; num_inserted < extreme_points.size();) {
-        for (size_t j = 0; j < extreme_points.size(); ++j) {
-            if (inserted[j] == -1) {
-                bool has_right = false;
-                for (size_t k = 0; k < extreme_points.size(); ++k) {
-                    if (last_extreme_point_index == k || j == k) {
-                        continue;
-                    }
-                    if (!util::IsTurnLeftOrOnRay(extreme_points[last_extreme_point_index], extreme_points[j], extreme_points[k])) {
-                        has_right = true;
-                        break;
-                    }
-                }
-                if (!has_right) {
-                    inserted[j] = j;
-                    last_extreme_point_index = j;
-                    convex_hull_points.push_back(extreme_points[j]);
-                    num_inserted++;
-                    break;
-                }
-            }
-        }
-    }
-    return convex_hull_points;
+    return SortExtremePoints(extreme_points);
 }
 
 }  // namespace euclid::algorithm::convex_hull
