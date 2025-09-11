@@ -8,12 +8,10 @@
 
 #include "geometry/point.h"
 
-namespace euclid::geometry
-{
+namespace euclid::geometry {
 
-struct Triangle2D
-{
+struct Triangle2D {
     Point2D vertices[3];
 };
 
-} // namespace euclid::geometry
+}  // namespace euclid::geometry
