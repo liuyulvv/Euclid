@@ -1,7 +1,7 @@
-BasedOnStyle: Microsoft
+BasedOnStyle: Google
 IndentWidth: 4
 TabWidth: 4
-ColumnLimit: 0
+ColumnLimit: 180
 DerivePointerAlignment: true
 PointerAlignment: Left
 QualifierAlignment: Left

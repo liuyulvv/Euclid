@@ -10,8 +10,7 @@
 #include "geometry/triangle.h"
 #include "util/compare.h"
 
-namespace euclid::algorithm::util
-{
+namespace euclid::algorithm::util {
 
 /**
  * @brief Determines if the sequence of points p, q, r makes a left turn.
@@ -21,10 +20,10 @@ namespace euclid::algorithm::util
  * @param r The third point.
  * @return true if the turn from pq to qr is to the left, false otherwise.
  */
-bool is_turn_left(const euclid::geometry::Point2D& p, const euclid::geometry::Point2D& q, const euclid::geometry::Point2D& r)
-{
-    auto cross_value = p.coords[0] * q.coords[1] - p.coords[1] * q.coords[0] + q.coords[0] * r.coords[1] - q.coords[1] * r.coords[0] + r.coords[0] * p.coords[1] - r.coords[1] * p.coords[0];
-    return euclid::util::greater(cross_value, 0.0);
+bool IsTurnLeft(const euclid::geometry::Point2D& p, const euclid::geometry::Point2D& q, const euclid::geometry::Point2D& r) {
+    auto cross_value =
+        p.coords[0] * q.coords[1] - p.coords[1] * q.coords[0] + q.coords[0] * r.coords[1] - q.coords[1] * r.coords[0] + r.coords[0] * p.coords[1] - r.coords[1] * p.coords[0];
+    return euclid::util::Greater(cross_value, 0.0);
 }
 
 /**
@@ -35,28 +34,25 @@ bool is_turn_left(const euclid::geometry::Point2D& p, const euclid::geometry::Po
  * @param r The third point.
  * @return true if the turn from pq to qr is to the left(r on the ray pq but not on segment pq is consider as true), false otherwise.
  */
-bool is_turn_left_or_on_ray(const euclid::geometry::Point2D& p, const euclid::geometry::Point2D& q, const euclid::geometry::Point2D& r)
-{
-    auto cross_value = p.coords[0] * q.coords[1] - p.coords[1] * q.coords[0] + q.coords[0] * r.coords[1] - q.coords[1] * r.coords[0] + r.coords[0] * p.coords[1] - r.coords[1] * p.coords[0];
-    if (euclid::util::equal(cross_value, 0.0))
-    {
+bool IsTurnLeftOrOnRay(const euclid::geometry::Point2D& p, const euclid::geometry::Point2D& q, const euclid::geometry::Point2D& r) {
+    auto cross_value =
+        p.coords[0] * q.coords[1] - p.coords[1] * q.coords[0] + q.coords[0] * r.coords[1] - q.coords[1] * r.coords[0] + r.coords[0] * p.coords[1] - r.coords[1] * p.coords[0];
+    if (euclid::util::Equal(cross_value, 0.0)) {
         // p, q, r are collinear
         auto pq_pr_dot_value = (q.coords[0] - p.coords[0]) * (r.coords[0] - p.coords[0]) + (q.coords[1] - p.coords[1]) * (r.coords[1] - p.coords[1]);
         auto pq_pq_dot_value = (q.coords[0] - p.coords[0]) * (q.coords[0] - p.coords[0]) + (q.coords[1] - p.coords[1]) * (q.coords[1] - p.coords[1]);
-        if (euclid::util::greater_equal(pq_pr_dot_value, 0.0) && euclid::util::less_equal(pq_pr_dot_value, pq_pq_dot_value))
-        {
+        if (euclid::util::GreaterEqual(pq_pr_dot_value, 0.0) && euclid::util::LessEqual(pq_pr_dot_value, pq_pq_dot_value)) {
             // point r is on the segment pq
             return false;
         }
-        if (euclid::util::greater(pq_pr_dot_value, 0.0))
-        {
+        if (euclid::util::Greater(pq_pr_dot_value, 0.0)) {
             // point r is on the ray pq
             return true;
         }
         // point r is ont thr ray qp
         return false;
     }
-    return euclid::util::greater(cross_value, 0.0);
+    return euclid::util::Greater(cross_value, 0.0);
 }
 
 /**
@@ -66,11 +62,10 @@ bool is_turn_left_or_on_ray(const euclid::geometry::Point2D& p, const euclid::ge
  * @param triangle The triangle to check against.
  * @return true if the point is inside the triangle, false otherwise.
  */
-bool is_point_in_triangle(const euclid::geometry::Point2D& point, const euclid::geometry::Triangle2D& triangle)
-{
-    bool is_left_1 = is_turn_left(triangle.vertices[0], triangle.vertices[1], point);
-    bool is_left_2 = is_turn_left(triangle.vertices[1], triangle.vertices[2], point);
-    bool is_left_3 = is_turn_left(triangle.vertices[2], triangle.vertices[0], point);
+bool IsPointInTriangle(const euclid::geometry::Point2D& point, const euclid::geometry::Triangle2D& triangle) {
+    bool is_left_1 = IsTurnLeft(triangle.vertices[0], triangle.vertices[1], point);
+    bool is_left_2 = IsTurnLeft(triangle.vertices[1], triangle.vertices[2], point);
+    bool is_left_3 = IsTurnLeft(triangle.vertices[2], triangle.vertices[0], point);
     return is_left_1 == is_left_2 && is_left_2 == is_left_3;
 }
 
@@ -83,12 +78,11 @@ bool is_point_in_triangle(const euclid::geometry::Point2D& point, const euclid::
  * @param r The third point.
  * @return true if the point is inside the triangle, false otherwise.
  */
-bool is_point_in_triangle(const euclid::geometry::Point2D& point, const euclid::geometry::Point2D& p, const euclid::geometry::Point2D& q, const euclid::geometry::Point2D& r)
-{
-    bool is_left_1 = is_turn_left(p, q, point);
-    bool is_left_2 = is_turn_left(q, r, point);
-    bool is_left_3 = is_turn_left(r, p, point);
+bool IsPointInTriangle(const euclid::geometry::Point2D& point, const euclid::geometry::Point2D& p, const euclid::geometry::Point2D& q, const euclid::geometry::Point2D& r) {
+    bool is_left_1 = IsTurnLeft(p, q, point);
+    bool is_left_2 = IsTurnLeft(q, r, point);
+    bool is_left_3 = IsTurnLeft(r, p, point);
     return is_left_1 == is_left_2 && is_left_2 == is_left_3;
 }
 
-} // namespace euclid::algorithm::util
+}  // namespace euclid::algorithm::util

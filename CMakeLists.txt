@@ -21,9 +21,9 @@ target_include_directories(Euclid INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-option(BUILD_EUCLID_TESTS "Build Euclid tests" ON)
+option(BUILD_EUCLID_TEST "Build Euclid test" ON)
 
-if(${BUILD_EUCLID_TESTS})
+if(${BUILD_EUCLID_TEST})
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     set(INSTALL_GTEST OFF CACHE BOOL "Disable GTest installation" FORCE)
 
@@ -32,29 +32,20 @@ if(${BUILD_EUCLID_TESTS})
 
     file(GLOB_RECURSE test_sources "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp")
 
-    foreach(test_source ${test_sources})
-        get_filename_component(test_name ${test_source} NAME_WE)
-        if(TARGET ${test_name})
-            continue()
-        endif()
+    add_executable(
+        euclid_test
+        ${test_sources}
+    )
 
-        add_executable(
-            ${test_name}
-            ${test_source}
-        )
+    add_test(
+        NAME euclid_test
+        COMMAND euclid_test
+    )
 
-        add_test(
-            NAME ${test_name}
-            COMMAND ${test_name}
-        )
-
-        target_link_libraries(
-            ${test_name}
-            PRIVATE
-            GTest::gtest_main
-            Euclid
-        )
-        message(STATUS "Added test: ${test_name}")
-        
-    endforeach()
+    target_link_libraries(
+        euclid_test
+        PRIVATE
+        GTest::gtest_main
+        Euclid
+    )
 endif()
