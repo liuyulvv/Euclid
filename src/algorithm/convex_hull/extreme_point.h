@@ -7,7 +7,6 @@
  */
 
 #include <algorithm>
-#include <stdexcept>
 #include <vector>
 
 #include "algorithm/convex_hull/util.h"
@@ -16,7 +15,7 @@
 
 namespace euclid::algorithm::convex_hull {
 
-std::vector<geometry::Point2D> GetConvexHullByExtremePoints(const std::vector<geometry::Point2D>& input_points) {
+inline std::vector<geometry::Point2D> GetConvexHullByExtremePoint(const std::vector<geometry::Point2D>& input_points) {
     auto points = remove_coincide_points(input_points);
     if (points.size() <= 3) {
         return points;
@@ -56,7 +55,7 @@ std::vector<geometry::Point2D> GetConvexHullByExtremePoints(const std::vector<ge
         is_extreme_point[h] = is_extreme;
     }
 
-    std::vector<euclid::geometry::Point2D> extreme_points;
+    std::vector<geometry::Point2D> extreme_points;
     extreme_points.reserve(points.size());
     for (size_t h = 0; h < points.size(); ++h) {
         if (is_extreme_point[h]) {
@@ -69,7 +68,7 @@ std::vector<geometry::Point2D> GetConvexHullByExtremePoints(const std::vector<ge
 
     std::sort(extreme_points.begin(), extreme_points.end());
 
-    std::vector<euclid::geometry::Point2D> convex_hull_points;
+    std::vector<geometry::Point2D> convex_hull_points;
     convex_hull_points.reserve(extreme_points.size());
     convex_hull_points.push_back(extreme_points[0]);
 
