@@ -6,6 +6,7 @@
  * @date 2025-09-10
  */
 
+#include <algorithm>
 #include <vector>
 
 #include "algorithm/util/location.h"
