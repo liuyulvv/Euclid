@@ -1,4 +1,3 @@
 {
-    "C_Cpp.intelliSenseEngine": "disabled",
-    "C_Cpp.clang_format_path": "/usr/bin/clang-format"
+    "lldb-dap.executable-path": "/usr/bin/lldb-dap-18"
 }
