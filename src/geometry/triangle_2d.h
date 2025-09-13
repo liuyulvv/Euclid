@@ -1,12 +1,12 @@
 #pragma once
 
 /**
- * @file triangle.h
+ * @file triangle_2d.h
  * @author liuyulvv (liuyulvv@outlook.com)
  * @date 2025-09-01
  */
 
-#include "geometry/point.h"
+#include "geometry/point_2d.h"
 
 namespace euclid::geometry {
 

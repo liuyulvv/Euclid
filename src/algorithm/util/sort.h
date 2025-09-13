@@ -9,7 +9,7 @@
 #include <cstddef>
 #include <vector>
 
-#include "geometry/point.h"
+#include "geometry/point_2d.h"
 
 namespace euclid::algorithm::util {
 

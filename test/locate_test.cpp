@@ -7,8 +7,8 @@
 #include <gtest/gtest.h>
 
 #include "algorithm/util/location.h"
-#include "geometry/point.h"
-#include "geometry/triangle.h"
+#include "geometry/point_2d.h"
+#include "geometry/triangle_2d.h"
 
 using namespace euclid::geometry;
 using namespace euclid::algorithm::util;

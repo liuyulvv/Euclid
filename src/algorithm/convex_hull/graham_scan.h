@@ -14,7 +14,7 @@
 
 #include "algorithm/util/location.h"
 #include "algorithm/util/sort.h"
-#include "geometry/point.h"
+#include "geometry/point_2d.h"
 
 namespace euclid::algorithm::convex_hull {
 

@@ -9,7 +9,7 @@
 #include "algorithm/convex_hull/extreme_edge.h"
 #include "algorithm/convex_hull/extreme_point.h"
 #include "algorithm/convex_hull/graham_scan.h"
-#include "geometry/point.h"
+#include "geometry/point_2d.h"
 
 using namespace euclid::geometry;
 using namespace euclid::algorithm::convex_hull;

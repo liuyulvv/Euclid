@@ -6,8 +6,8 @@
  * @date 2025-09-01
  */
 
-#include "geometry/point.h"
-#include "geometry/triangle.h"
+#include "geometry/point_2d.h"
+#include "geometry/triangle_2d.h"
 #include "util/compare.h"
 
 namespace euclid::algorithm::util {
