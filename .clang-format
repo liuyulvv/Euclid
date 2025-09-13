@@ -7,3 +7,4 @@ PointerAlignment: Left
 QualifierAlignment: Left
 IndentAccessModifiers: false
 AccessModifierOffset: -4
+SortIncludes: true
